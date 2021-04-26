@@ -14,6 +14,7 @@ app.use(
   })
 )
 app.use(bodyParser.json())
+app.use(express.json())
 
 // DB Config
 const db = require('./config/keys').mongoURI
@@ -34,13 +35,13 @@ require('./config/passport')(passport)
 app.use('/api/users', users)
 
 // Deploying on server ******************
-const __dirname = path.resolve()
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+const __dirname1 = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname1, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/build')))
+  app.use(express.static(path.join(__dirname1, '/client/build')))
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname1, 'client', 'build', 'index.html'))
   )
 } else {
   app.get('/', (req, res) => {
